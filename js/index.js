@@ -44,7 +44,7 @@ const displayAllPhone = (phones) => {
               <p class="card-title"><i class="fa-solid fa-dollar-sign"></i>${phone.price || "999"}</p>
             </div>
             <div class="card-actions justify-end">
-              <button class="btn" onclick="handleDetails('${phone.slug}')">Details</button>
+              <button class="btn" onclick="phoneDetails('${phone.slug}')" onclick="handleDetails('${phone.slug}')">Details</button>
             </div>
           </div>
         </div>`;
@@ -75,6 +75,42 @@ const handleSearch = () => {
   const searchInput = document.getElementById("search-input").value;
   loadAllPhones(false, searchInput);
 };
+const phoneDetails = async (slugs) => {
+  const response = await fetch(`https://openapi.programming-hero.com/api/phone/${slugs}`);
+  const data = await response.json();
+  const {brand, image, slug, name, releaseDate, mainFeatures, phone_name} = data.data;
+  // my_modal_1.showModal()
+  const modalContainer = document.getElementById("modal-container");
+    const modalShow = document.createElement('div');
+    modalShow.innerHTML = `<dialog id="my_modal_1" class="modal">
+    <div class="modal-box">
+      <div class="mx-auto flex justify-center items-center bg-blue-200">
+        <img src=${image || "fallback-image-url.jpg"} alt="${phone_name}" />
+      </div>
+      <div class="card-body">
+       <h2 class="card-title">
+  
+        <div class="badge badge-secondary">NEW</div>
+        </h2>
+              <p>Buy iPhone in Bangladesh from iHub. Discover the latest iPhones at iHub Bangladesh! Get unbeatable deals on the most advanced Apple smartphones with sleek designs, powerful performance, and cutting-edge features.</p>
+              <div>
+                <p class="card-title"><i class="fa-solid fa-dollar-sign"></i></p>
+              </div>
+              <div class="card-actions justify-end">
+              </div>
+            </div>
+      <div class="modal-action">
+        <form method="dialog">
+          <!-- if there is a button in form, it will close the modal -->
+          <button class="btn">Close</button>
+        </form>
+      </div>
+    </div>
+  </dialog>`;
+  modalContainer.appendChild(modalShow);
+my_modal_1.showModal();
+};
+
 
 // Load initial phones
 loadAllPhones();
