@@ -81,7 +81,7 @@ const phoneDetails = async (slugs) => {
   const {brand, image, slug, name, releaseDate, mainFeatures, phone_name} = data.data;
   // my_modal_1.showModal()
   const modalContainer = document.getElementById("modal-container");
-    const modalShow = document.createElement('div');
+  const modalShow = document.createElement('div');
     modalShow.innerHTML = `<dialog id="my_modal_1" class="modal">
     <div class="modal-box">
       <div class="mx-auto flex justify-center items-center bg-blue-200">
