@@ -79,9 +79,7 @@ const phoneDetails = async (slugs) => {
   try {
     const response = await fetch(`https://openapi.programming-hero.com/api/phone/${slugs}`);
     const data = await response.json();
-    console.log(data);
     const { brand, image, slug, name, releaseDate, mainFeatures, phone_name} = data.data;
-
     const modalContainer = document.getElementById("modal-container");
     modalContainer.innerHTML = ""; // Clear previous modal content
     const modalShow = document.createElement("div");
@@ -114,8 +112,5 @@ const phoneDetails = async (slugs) => {
     console.error("Failed to fetch phone details:", error);
   }
 };
-
-
-
 // Load initial phones
 loadAllPhones();
