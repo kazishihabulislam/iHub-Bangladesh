@@ -89,7 +89,6 @@ const phoneDetails = async (slugs) => {
       `https://openapi.programming-hero.com/api/phone/${slugs}`
     );
     const data = await response.json();
-    console.log(data);
     const {
       brand,
       image,
