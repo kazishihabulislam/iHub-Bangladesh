@@ -4,7 +4,9 @@ const loadAllPhones = async (status = false, searchInput = "") => {
 
   try {
     const apiData = await fetch(
-      `https://openapi.programming-hero.com/api/phones?search=${searchInput || "iphone"}`
+      `https://openapi.programming-hero.com/api/phones?search=${
+        searchInput || "iphone"
+      }`
     );
     const data = await apiData.json();
     const phones = data.data;
@@ -32,7 +34,9 @@ const displayAllPhone = (phones) => {
     phoneCard.innerHTML = `
         <div class="card py-6 bg-base-100 shadow-xl">
           <figure>
-            <img src=${phone.image || "fallback-image-url.jpg"} alt="${phone.phone_name}" />
+            <img src=${phone.image || "fallback-image-url.jpg"} alt="${
+      phone.phone_name
+    }" />
           </figure>
           <div class="card-body">
             <h2 class="card-title">
@@ -41,10 +45,14 @@ const displayAllPhone = (phones) => {
             </h2>
             <p>Buy iPhone in Bangladesh from iHub. Discover the latest iPhones at iHub Bangladesh! Get unbeatable deals on the most advanced Apple smartphones with sleek designs, powerful performance, and cutting-edge features.</p>
             <div>
-              <p class="card-title"><i class="fa-solid fa-dollar-sign"></i>${phone.price || "999"}</p>
+              <p class="card-title"><i class="fa-solid fa-dollar-sign"></i>${
+                phone.price || "999"
+              }</p>
             </div>
             <div class="card-actions justify-end">
-              <button class="btn" onclick="phoneDetails('${phone.slug}')" onclick="handleDetails('${phone.slug}')">Details</button>
+              <button class="btn" onclick="phoneDetails('${
+                phone.slug
+              }')" onclick="handleDetails('${phone.slug}')">Details</button>
             </div>
           </div>
         </div>`;
@@ -77,9 +85,21 @@ const handleSearch = () => {
 };
 const phoneDetails = async (slugs) => {
   try {
-    const response = await fetch(`https://openapi.programming-hero.com/api/phone/${slugs}`);
+    const response = await fetch(
+      `https://openapi.programming-hero.com/api/phone/${slugs}`
+    );
     const data = await response.json();
-    const { brand, image, slug, name, releaseDate, mainFeatures, phone_name} = data.data;
+    console.log(data);
+    const {
+      brand,
+      image,
+      slug,
+      name,
+      releaseDate,
+      mainFeatures,
+      phone_name,
+      others,
+    } = data.data;
     const modalContainer = document.getElementById("modal-container");
     modalContainer.innerHTML = ""; // Clear previous modal content
     const modalShow = document.createElement("div");
@@ -87,17 +107,57 @@ const phoneDetails = async (slugs) => {
       <dialog id="my_modal_4" class="modal">
         <div class="modal-box w-11/12 max-w-5xl">
           <div class="mx-auto flex justify-center items-center">
-            <img src="${image || "fallback-image-url.jpg"}" alt="${phone_name}" />
+            <img src="${
+              image || "fallback-image-url.jpg"
+            }" alt="${phone_name}" />
           </div>
           <div class="card-body">
             <h2 class="card-title">${name}</h2>
-            <p><strong>Main Features:</strong> ${mainFeatures.storage ? mainFeatures.storage : "Not available"}</p>
-            <p><strong>Display Size:</strong> ${mainFeatures.displaySize ? mainFeatures.displaySize : "Not available"}</p>
-            <p> <strong>Chip Set:</strong> ${mainFeatures.chipSet ? mainFeatures.chipSet : "Not available"}</p>
-            <p><strong>Memory:</strong> ${mainFeatures.memory ? mainFeatures.memory : "Not available"}</p>
+            <p><strong>Main Features:</strong> ${
+              mainFeatures.storage ? mainFeatures.storage : "Not available"
+            }</p>
+            <p><strong>Display Size:</strong> ${
+              mainFeatures.displaySize
+                ? mainFeatures.displaySize
+                : "Not available"
+            }</p>
+            <p> <strong>Chip Set:</strong> ${
+              mainFeatures.chipSet ? mainFeatures.chipSet : "Not available"
+            }</p>
+            <p><strong>Memory:</strong> ${
+              mainFeatures.memory ? mainFeatures.memory : "Not available"
+            }</p>
+            <p><strong>Sensors:</strong> ${
+              mainFeatures.sensors ? mainFeatures.sensors : "Not available"
+            }</p>
+            <div>
+            <p><strong>Others:</strong></p>
+            <ul class="px-14">
+            <li><span class="text-gray-500 font-bold">WLAN :</span> ${
+              others.WLAN ? others.WLAN : "Not available"
+            }</li>
+            <li><span class="text-gray-500 font-bold">Bluetooth :</span> ${
+              others.Bluetooth ? others.Bluetooth : "Not available"
+            }</li>
+            <li><span class="text-gray-500 font-bold">GPS :</span> ${
+              others.GPS ? others.GPS : "Not available"
+            }</li>
+            <li><span class="text-gray-500 font-bold">NFC :</span> ${
+              others.NFC ? others.NFC : "Not available"
+            }</li>
+            <li><span class="text-gray-500 font-bold">Radio :</span> ${
+              others.Radio ? others.Radio : "Not available"
+            }</li>
+            <li><span class="text-gray-500 font-bold">USB :</span> ${
+              others.USB ? others.USB : "Not available"
+            }</li>
+            </ul>
+            </div>
             <p><strong>Slug:</strong> ${slug ? slug : "Not available"}</p>
             <p><strong>Brand:</strong> ${brand || "Brand not available"}</p>
-            <p><strong>Release Date:</strong> ${releaseDate || "Release date not available"}</p>
+            <p><strong>Release Date:</strong> ${
+              releaseDate || "Release date not available"
+            }</p>
           </div>
           <div class="modal-action">
             <button class="btn" onclick="document.getElementById('my_modal_4').close()">Close</button>
